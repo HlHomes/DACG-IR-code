@@ -86,7 +86,7 @@ python src/test.py --model "$model" --benchmarks $benchmarks --checkpoint_id "${
 
 ### Multi-Weather and Signal Degradation
 ```bash
-python test.py --dataset "dataset"
+python src/test.py --dataset "dataset"
 ```
 *(For specific settings, please refer to `./test.py`)*
 
@@ -113,7 +113,7 @@ python src/train.py --model model --batch_size 8 --de_type synllie --trainset st
 
 ### Multi-Weather or Signal Degradation Training
 ```bash
-python train.py --dataset allweather --batch_size 8 --patch_size 256 --num_gpus 4 --data_file_dir data_file_dir
+python src/train.py --dataset allweather --batch_size 8 --patch_size 256 --num_gpus 4 --data_file_dir data_file_dir
 ```
 
 ### CDD11: Composited Degradations Training
