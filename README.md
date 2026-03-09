@@ -3,23 +3,36 @@
 **Authors:** Lei He, Jielei Chu*, Fengmao Lv, Weide Liu, Tianrui Li, Jun Cheng, Yuming Fang  
 **\* Corresponding Author**
 
-## Abstract
-Unified image restoration aims to handle diverse degradation types using a single model. However, significant variability across different degradations often leads to severe task interference and suboptimal performance. Existing methods struggle to balance task-specific discriminability with inter-task generalization, resulting in either negative interference in complex environments or poor performance on specific degradations.
+<details>
+  <summary>
+  <font size="+1">Abstract</font>
+  </summary>
+Unified image restoration aims to handle diverse degradation types using a single model. However, the significant variability across different degradations often leads to severe task interference and suboptimal performance. Existing methods often struggle to balance task-specific discriminability with inter-task generalization, leading to either negative interference in complex environments or suboptimal performance on specific degradations. To overcome these challenges, we propose a Degradation-Aware Adaptive Context Gating (DACG-IR), which enables the restoration model to explicitly perceive degradation characteristics and dynamically modulate feature representations conditioned on the input image. The core idea is to construct degradation-aware contextual representations directly from the input image and utilize them to modulate attention distribution, frequency-domain modulation, and feature aggregation throughout the model. This design enables the model to suppress degradation-induced noise and interference while preserving informative image structures. Specifically, we design a lightweight multi-scale degradation-aware module to extract coarse degradation information and generate layer-wise degradation prompts, which guide the attention temperature and attention output gating in different blocks of the encoder and decoder, enabling adaptive feature extraction and fusion across scales. The generated global feature prompts is further used to dynamically modulate high-dimensional latent features. Furthermore, a spatial-channel dual-gated adaptive fusion mechanism is designed to refine encoder features and suppress the propagation of noise or irrelevant background information from shallow layers to deeper representations, thereby promoting high-fidelity reconstruction in the decoder. Extensive experiments on multiple benchmark datasets show that DACG-IR consistently outperforms state-of-the-art image restoration methods under single-task, all-in-one, adverse weather removal, and composite degradation settings. 
 
-To overcome these challenges, we propose **Degradation-Aware Adaptive Context Gating (DACG-IR)**. This method enables the restoration model to explicitly perceive degradation characteristics and dynamically modulate feature representations conditioned on the input image. 
+</details>
 
-**Key Features:**
-*   **Degradation-Aware Context:** Constructs contextual representations directly from the input image to modulate attention distribution, frequency-domain modulation, and feature aggregation.
-*   **Lightweight Multi-Scale Module:** Extracts coarse degradation information to generate layer-wise degradation prompts. These guide attention temperature and output gating in encoder/decoder blocks for adaptive feature extraction.
-*   **Global Feature Prompts:** Dynamically modulate high-dimensional latent features.
-*   **Spatial–Channel Dual-Gated Fusion:** Refines encoder features and suppresses noise propagation from shallow to deep layers, promoting high-fidelity reconstruction.
-
-Extensive experiments demonstrate that DACG-IR consistently outperforms state-of-the-art methods in single-task, all-in-one, adverse weather removal, and composite degradation settings.
-
-## Architecture & Results
-The framework supports:
-*   **Three-task All-in-One Restoration:** Haze, Rain, Noise.
-*   **Five-task All-in-One Restoration:** Haze, Rain, Noise, Blur, Low Light.
+## Architecture 
+![](fig/arch.png)
+## Results
+<br>
+<details>
+  <summary>
+  <font>**Three-task All-in-One Restoration:** Haze, Rain, Noise.</font>
+  </summary>
+  <p align="center">
+  <img src = "fig/result_task_3.png">
+  </p>
+</details>
+<br>
+<details>
+  <summary>
+  <font> **Five-task All-in-One Restoration:** Haze, Rain, Noise, Blur, Low Light.</font>
+  </summary>
+  <p align="center">
+  <img src = "fig/result_task_5.png">
+  </p>
+</details>
+*  
 
 ## Installation
 
