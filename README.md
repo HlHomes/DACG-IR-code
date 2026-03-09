@@ -131,5 +131,5 @@ python src/train.py --model model_s --batch_size 8 --de_type denoise_15 denoise_
 This code is built upon:
 *   [PromptIR](https://github.com/va1shn9v/PromptIR)
 *   [AirNet](https://github.com/XLearning-SCU/2022-CVPR-AirNet)
-*   [MoCE-IR](https://eduardzamfir.github.io/moceir/)
+*   [MoCE-IR](https://github.com/eduardzamfir/MoCE-IR)
 
