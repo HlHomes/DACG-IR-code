@@ -113,7 +113,7 @@ python src/train.py --model model --batch_size 8 --de_type synllie --trainset st
 
 ### Multi-Weather or Signal Degradation Training
 ```bash
-python src/train.py --dataset allweather --batch_size 8 --patch_size 256 --num_gpus 4 --data_file_dir data_file_dir
+python src/train.py --dataset allweather --batch_size 8 --num_gpus 4 --data_file_dir data_file_dir
 ```
 
 ### CDD11: Composited Degradations Training
@@ -132,4 +132,5 @@ This code is built upon:
 *   [PromptIR](https://github.com/va1shn9v/PromptIR)
 *   [AirNet](https://github.com/XLearning-SCU/2022-CVPR-AirNet)
 *   [MoCE-IR](https://github.com/eduardzamfir/MoCE-IR)
+*   [Restormer](https://github.com/swz30/Restormer)
 
