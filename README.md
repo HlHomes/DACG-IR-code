@@ -3,47 +3,22 @@
 **Authors:** Lei He, Jielei Chu*, Fengmao Lv, Weide Liu, Tianrui Li, Jun Cheng, Yuming Fang  
 **\* Corresponding Author**
 
+[![paper](https://img.shields.io/badge/arXiv-Paper-<COLOR>.svg)](https://arxiv.org/abs/2605.01236)
+
 <details>
   <summary>
   <font size="+1">Abstract</font>
   </summary>
 Unified image restoration aims to handle diverse degradation types using a single model. However, the significant variability across different degradations often leads to severe task interference and suboptimal performance. Existing methods often struggle to balance task-specific discriminability with inter-task generalization, leading to either negative interference in complex environments or suboptimal performance on specific degradations. To overcome these challenges, we propose a Degradation-Aware Adaptive Context Gating (DACG-IR), which enables the restoration model to explicitly perceive degradation characteristics and dynamically modulate feature representations conditioned on the input image. The core idea is to construct degradation-aware contextual representations directly from the input image and utilize them to modulate attention distribution, frequency-domain modulation, and feature aggregation throughout the model. This design enables the model to suppress degradation-induced noise and interference while preserving informative image structures. Specifically, we design a lightweight multi-scale degradation-aware module to extract coarse degradation information and generate layer-wise degradation prompts, which guide the attention temperature and attention output gating in different blocks of the encoder and decoder, enabling adaptive feature extraction and fusion across scales. The generated global feature prompts is further used to dynamically modulate high-dimensional latent features. Furthermore, a spatial-channel dual-gated adaptive fusion mechanism is designed to refine encoder features and suppress the propagation of noise or irrelevant background information from shallow layers to deeper representations, thereby promoting high-fidelity reconstruction in the decoder. Extensive experiments on multiple benchmark datasets show that DACG-IR consistently outperforms state-of-the-art image restoration methods under single-task, all-in-one, adverse weather removal, and composite degradation settings. 
-
 </details>
 
-## Architecture 
+
+
+# 🏗️DACG-IR Architecture 
+
 ![](fig/arch.png)
-## Results
-<br>
-<details>
-  <summary>
-  <font>Three-task All-in-One Restoration.</font>
-  </summary>
-  <p align="center">
-  <img src = "fig/result_task_3.png">
-  </p>
-</details>
-<br>
-<details>
-  <summary>
-  <font> Five-task All-in-One Restoration.</font>
-  </summary>
-  <p align="center">
-  <img src = "fig/result_task_5.png">
-  </p>
-</details>
-<br>
-<details>
-  <summary>
-  <font> Mul-Weather Restoration.</font>
-  </summary>
-  <p align="center">
-  <img src = "fig/result_mul_weather.png">
-  </p>
-</details>
-  
 
-## Installation
+# 🛠️Installation
 
 1.  **Clone the repository:**
     ```bash
@@ -54,7 +29,7 @@ Unified image restoration aims to handle diverse degradation types using a singl
 2.  **Create a Conda environment:**
     ```bash
     ENV_NAME="DACG-IR"
-    conda create -n $ENV_NAME python=3.10
+    conda create -n $ENV_NAME python==3.10
     conda activate $ENV_NAME
     ```
 
@@ -63,7 +38,95 @@ Unified image restoration aims to handle diverse degradation types using a singl
     bash install.sh
     ```
 
-## Testing
+# ⚙️Data Preparation
+
+## All-in-One Dataset
+
+All the datasets for 5 tasks used in the paper can be downloaded from the following locations:
+
+Denoising: [BSD400](https://drive.google.com/file/d/1idKFDkAHJGAFDn1OyXZxsTbOSBx9GS8N/view?usp=sharing), [WED](https://drive.google.com/file/d/1e62XGdi5c6IbvkZ70LFq0KLRhFvih7US/view?usp=sharing), [Urban100](https://drive.google.com/drive/folders/1B3DJGQKB6eNdwuQIhdskA64qUuVKLZ9u), [Kodak24](https://r0k.us/graphics/kodak/), [BSD68](https://github.com/clausmichele/CBSD68-dataset/tree/master/CBSD68/original)
+
+Deraining: [Train100L&Rain100L](https://drive.google.com/drive/folders/1-_Tw-LHJF4vh8fpogKgZx1EQ9MhsJI_f?usp=sharing)
+
+Dehazing: Train[ RESIDE](https://sites.google.com/view/reside-dehaze-datasets/reside-%CE%B2), Test [SOTS-Outdoor](https://sites.google.com/view/reside-dehaze-datasets/reside-v0)
+
+Deblur: [GoPro](https://drive.google.com/file/d/1y_wQ5G5B65HS_mdIjxKYTcnRys_AGh5v/view?usp=sharing)
+
+Low-light Enhancement: [LOL-V1](https://daooshee.github.io/BMVC2018website/)
+
+The training data should be placed in ``` data/Train/{task_name}``` directory where ```task_name``` can be Denoise, Derain, Dehaze, Deblur, or Enhance.
+
+## Single-Degradation Dataset
+
+Deraining:  [Train100L&Rain100L](https://drive.google.com/drive/folders/1-_Tw-LHJF4vh8fpogKgZx1EQ9MhsJI_f?usp=sharing) , [SPAData](https://pan.baidu.com/s/1lPn3MWckHxh1uBYYucoWVQ?pwd=4fwo)
+
+Dehazing: [ RESIDE](https://sites.google.com/view/reside-dehaze-datasets/reside-%CE%B2)
+
+Desnowing: [ Snow100K]( https://sites.google.com/view/yunfuliu/desnownet), [SRRS](https://drive.google.com/file/d/1GX3e0ziUzBXnDtgeB5sHkgeWP1wUg5td/view?usp=sharing)
+
+Deblur: [GoPro](https://drive.google.com/file/d/1y_wQ5G5B65HS_mdIjxKYTcnRys_AGh5v/view?usp=sharing)
+
+Denoising: [BSD400](https://drive.google.com/file/d/1idKFDkAHJGAFDn1OyXZxsTbOSBx9GS8N/view?usp=sharing), [WED](https://drive.google.com/file/d/1e62XGdi5c6IbvkZ70LFq0KLRhFvih7US/view?usp=sharing), [Urban100](https://drive.google.com/drive/folders/1B3DJGQKB6eNdwuQIhdskA64qUuVKLZ9u), [Kodak24](https://r0k.us/graphics/kodak/), [BSD68](https://github.com/clausmichele/CBSD68-dataset/tree/master/CBSD68/original)
+
+Low-light Enhancement: [LOL-V1](https://daooshee.github.io/BMVC2018website/), [LOL-V2](https://drive.google.com/file/d/1dzuLCk9_gE2bFF222n3-7GVUlSVHpMYC/view), [LOL-Blur](https://github.com/sczhou/LEDNet)
+
+## Multi-Weather Dataset
+
+Train: [Allweather](https://github.com/jeya-maria-jose/TransWeather)
+
+Test: [Rain+fog](https://github.com/liruoteng/HeavyRainRemoval), [Snow100K-L]( https://sites.google.com/view/yunfuliu/desnownet), [Raindrop](https://github.com/rui1996/DeRaindrop)
+
+## Composite Degradations
+
+[CDD11](https://1drv.ms/f/s!As3rCDROnrbLgqpezG4sao-u9ddDhw?e=A0REHx)
+
+# 🔍 Results
+
+<br>
+
+<details>
+  <summary>
+  <font>Three-task All-in-One Restoration.</font>
+  </summary>
+  <p align="center">
+  <img src = "fig/result_task_3.png">
+  </p>
+</details>
+
+<br>
+
+<details>
+  <summary>
+  <font> Five-task All-in-One Restoration.</font>
+  </summary>
+  <p align="center">
+  <img src = "fig/result_task_5.png">
+  </p>
+</details>
+
+<br>
+
+<details>
+  <summary>
+  <font> Mul-Weather Restoration.</font>
+  </summary>
+  <p align="center">
+  <img src = "fig/result_mul_weather.png">
+  </p>
+</details>
+
+  <br>
+
+<details>
+  <summary>
+  <font> Composite Restoration.</font>
+  </summary>
+  <p align="center">
+  <img src = "fig/result_composite.png">
+  </p>
+</details>
+
+# 🧪Testing
 
 Performance results are generated using the `src/test.py` script. 
 *   `--model`: Set to `DACG-IR` or `DACG-IR-S`.
@@ -72,7 +135,7 @@ Performance results are generated using the `src/test.py` script.
 *   `--de_type`: Denotes degradation type.
 *   `--data_file_dir`: Your dataset directory.
 
-### All-in-One Testing
+## All-in-One Testing
 
 **Three Tasks:**
 ```bash
@@ -84,13 +147,13 @@ python src/test.py --model "model" --benchmarks benchmarks --checkpoint_id "chec
 python src/test.py --model "$model" --benchmarks $benchmarks --checkpoint_id "${checkpoint_id}" --de_type denoise_15 denoise_25 denoise_50 dehaze derain deblur synllie --data_file_dir "data_file_dir"
 ```
 
-### Multi-Weather and Signal Degradation
+## Multi-Weather and Signal Degradation
 ```bash
 python src/test.py --dataset "dataset"
 ```
 *(For specific settings, please refer to `./test.py`)*
 
-### CDD11: Composited Degradations
+## CDD11: Composited Degradations
 Replace `[DEG_CONFIG]` with the desired configuration:
 *   **Single:** `low`, `haze`, `rain`, `snow`
 *   **Double:** `low_haze`, `low_rain`, `low_snow`, `haze_rain`, `haze_snow`
@@ -100,13 +163,14 @@ Replace `[DEG_CONFIG]` with the desired configuration:
 python src/test.py --model [MODEL] --checkpoint_id [MODEL]_CDD11 --trainset CDD11_[DEG_CONFIG] --benchmarks cdd11 --de_type denoise_15 denoise_25 denoise_50 dehaze derain deblur synllie --data_file_dir "data_file_dir"
 ```
 
-## Training
+# 🚀 Training
 
 You can train the lightweight (`DACG-IR-S`) or heavy (`DACG-IR`) versions on three or five degradations.
 *   `--gpus`: Specify number of GPUs (`1` for single, `>1` for multiple).
 *   `--batch_size`: Defines batch size **per GPU**.
 
-### All-in-One Training
+All-in-One Training
+
 ```bash
 python src/train.py --model model --batch_size 8 --de_type synllie --trainset standard --num_gpus 4 --data_file_dir data_file_dir
 ```
@@ -127,10 +191,26 @@ Train from scratch on the [CDD11](https://github.com/gy65896/OneRestore) dataset
 python src/train.py --model model_s --batch_size 8 --de_type denoise_15 denoise_25 denoise_50 dehaze derain --trainset CDD11_all --num_gpus 4 --data_file_dir data_file_dir
 ```
 
-## Acknowledgements
+# 📋Acknowledgements
+
 This code is built upon:
+
 *   [PromptIR](https://github.com/va1shn9v/PromptIR)
 *   [AirNet](https://github.com/XLearning-SCU/2022-CVPR-AirNet)
 *   [MoCE-IR](https://github.com/eduardzamfir/MoCE-IR)
 *   [Restormer](https://github.com/swz30/Restormer)
+
+# 📖 Citation
+
+```
+@misc{he2026degradationawareadaptivecontextgating,
+      title={Degradation-Aware Adaptive Context Gating for Unified Image Restoration}, 
+      author={Lei He and Jielei Chu and Fengmao Lv and Weide Liu and Tianrui Li and Jun Cheng and Yuming Fang},
+      year={2026},
+      eprint={2605.01236},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2605.01236}, 
+}
+```
 
